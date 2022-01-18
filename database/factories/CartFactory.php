@@ -17,7 +17,7 @@ class CartFactory extends Factory
     public function definition()
     {
         return [
-            'quantity' => Str::random(2),
+            'quantity' =>rand(1,5),
             'product_id'=> Product::factory(),
             'user_id'=> User::factory(),
         ];

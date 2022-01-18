@@ -17,10 +17,10 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'quantity' => Str::random(2),
+            'quantity' =>rand(1,5),
             'product_id'=> Product::factory(),
             'user_id'=> User::factory(),
-            'cost' => Str::random(4),
+            'cost' => rand(1,5),
             'states'=> $this->faker->randomElement(['pending','in_progress','rejected','done']),
             'address' => $this->faker->address(),
             'latitude' => $this->faker->latitude(),

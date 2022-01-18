@@ -20,9 +20,9 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'full_name' => $this->faker->name(),
             'phone_verified_at' => now(),
-            'is_verify'=> $this->faker->randomElement(['true', 'false']),
+            'is_verify'=> $this->faker->boolean(['true', 'false']),
             'forget_code' => Str::random(4),
-            'is_active'=> $this->faker->randomElement(['true', 'false']),
+            'is_active'=> $this->faker->boolean(['true', 'false']),
             'photo' =>$this->faker->imageUrl(400, 300),
             'remember_token' => Str::random(10),
         ];
@@ -37,7 +37,7 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'phone_verified_at' => null,
             ];
         });
     }

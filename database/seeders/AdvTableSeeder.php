@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Adv;
 use Illuminate\Database\Seeder;
 
 class AdvTableSeeder extends Seeder
@@ -13,6 +14,7 @@ class AdvTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Adv::factory()->times(5)->create();
+
     }
 }

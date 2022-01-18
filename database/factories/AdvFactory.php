@@ -16,7 +16,7 @@ class AdvFactory extends Factory
         return [
             'img' =>$this->faker->imageUrl(400, 300),
             'text' => $this->faker->text(),
-            'is_active'=> $this->faker->randomElement(['true', 'false']),
+            'is_active'=> $this->faker->boolean(['true', 'false']),
 
         ];
     }

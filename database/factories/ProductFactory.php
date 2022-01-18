@@ -18,8 +18,8 @@ class ProductFactory extends Factory
         return [
             'img' =>$this->faker->imageUrl(400, 300),
             'name' => $this->faker->name(),
-            'main_price' => Str::random(4),
-            'current_price' => Str::random(4),
+            'main_price' =>rand(1,5),
+            'current_price' => rand(1,5),
             'description'=> $this->faker->text(100),
             'category_id'=> Category::factory(),
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductImage;
 use Illuminate\Database\Seeder;
 
 class ProductImageTableSeeder extends Seeder
@@ -13,6 +14,7 @@ class ProductImageTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ProductImage::factory()->times(5)->create();
+
     }
 }

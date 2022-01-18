@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use Illuminate\Database\Seeder;
 
 class AddressTableSeeder extends Seeder
@@ -13,6 +14,6 @@ class AddressTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Address::factory()->times(5)->create();
     }
 }

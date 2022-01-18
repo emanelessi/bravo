@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rate;
 use Illuminate\Database\Seeder;
 
 class RateTableSeeder extends Seeder
@@ -13,6 +14,7 @@ class RateTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Rate::factory()->times(5)->create();
+
     }
 }
