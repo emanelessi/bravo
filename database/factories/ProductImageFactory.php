@@ -16,7 +16,7 @@ class ProductImageFactory extends Factory
     {
         return [
             'product_id'=> Product::factory(),
-            'photo' =>$this->faker->imageUrl(400, 300),
+            'img' =>$this->faker->imageUrl(400, 300),
         ];
     }
 }

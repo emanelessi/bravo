@@ -17,7 +17,7 @@ class RateFactory extends Factory
     public function definition()
     {
         return [
-            'phone'=> rand(1,5),
+            'rate'=> rand(1,5),
             'product_id'=> Product::factory(),
             'user_id'=> User::factory(),
         ];
