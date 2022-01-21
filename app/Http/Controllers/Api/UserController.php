@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignupRequest;
+use App\Http\Requests\verifcationCodeRequest;
 use App\Repositories\Api\UserEloquent;
 use Illuminate\Http\Request;
 
@@ -25,5 +26,9 @@ class UserController extends Controller
     {
         return $this->user->home($id);
 
+    }
+    public function verify(verifcationCodeRequest $request)
+    {
+        return $this->user->verify($request->all());
     }
 }

@@ -52,5 +52,31 @@ class UserEloquent
         $user = isset($id) ? $this->model->find($id) : \auth()->user();
         return response_api(true, 200, 'Success', new UserResource($user));
     }
+    public function verify(array $data){
+        if ($data['verifcation_code']== '1234'){
+            $id = auth()->user()->id;
+            $user = User::find($id);
+            $user->is_verify = true;
+            $user->save();
+            $data = [
+                'status' => true,
+                'statusCode' => 200,
+                'message' => 'Phone Verified Successfully!',
+                'items' => '',
+
+            ];
+            return response()->json($data);
+//            return response_api(true, 200, 'Phone Verified Successfully!', new UserResource($user));
+
+        }
+        $data = [
+            'status' => false,
+            'statusCode' => 500,
+            'message' => 'Bad Verifcation Code!',
+            'items' => '',
+
+        ];
+        return response()->json($data);
+    }
 
 }

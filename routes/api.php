@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
+
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/verify',[UserController::class,'verify']);
+
     Route::get('home/{id?}', [UserController::class, 'home']);
 });
