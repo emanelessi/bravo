@@ -14,6 +14,12 @@ class AdvResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+//        `id`, `text`, `img`
+        return [
+            'id'=>$this->id,
+            'text'=>$this->text,
+            'img'=>$this->img,
+
+        ];
     }
 }

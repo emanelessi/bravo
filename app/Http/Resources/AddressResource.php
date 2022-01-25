@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class AddressResource extends JsonResource
 {
@@ -14,6 +15,14 @@ class AddressResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+//        `id`, `type`, `address`, `user_id`, `latitude`, `longitude`
+        return[
+            'id'=>$this->id,
+            'type'=>$this->type,
+            'address'=>$this->address,
+            'latitude'=>$this->latitude,
+            'longitude'=>$this->longitude,
+
+        ];
     }
 }

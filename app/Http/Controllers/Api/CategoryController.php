@@ -12,4 +12,8 @@ class CategoryController extends Controller
     {
         $this->category = $categoryEloquent;
     }
+    public function show()
+    {
+        return $this->category->show();
+    }
 }

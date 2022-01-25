@@ -14,6 +14,12 @@ class RateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+//        id`, `rate`, `product_id`, `user_id`
+        return[
+            'id'=>$this->id,
+            'rate'=>$this->rate,
+            'product'=>new ProductResource($this->product),
+            'user'=>new UserResource($this->user),
+        ];
     }
 }
