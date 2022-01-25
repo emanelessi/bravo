@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/home',[CategoryController::class,'show']);
 
     Route::post('/addresses',[AddressController::class,'show']);
-    Route::post('/address',[AddressController::class,'addaddress']);
+    Route::post('/address',[AddressController::class,'addAddress']);
 
 
 //    Route::get('/home', [UserController::class, 'home']);
