@@ -29,6 +29,7 @@ class UserController extends Controller
     }
     public function logout(Request $request)
     {
+
         return $this->user->logout($request->all());
     }
     public function profile()
