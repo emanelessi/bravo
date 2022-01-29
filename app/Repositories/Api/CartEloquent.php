@@ -7,6 +7,9 @@ namespace App\Repositories\Api;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Rate;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
 class CartEloquent
@@ -41,13 +44,22 @@ class CartEloquent
 //
 //        session()->put('cart', $cart);
 //        return response_api(true, 200, 'Add To Cart Successfully!','');
+        $cart = Cart::where('user_id', auth()->user()->id)->where('product_id', $data['product_id'])->first();
+        if (!empty($cart)) {
+            $cart->user_id = Auth::user()->id;
+            $cart->quantity = $data['quantity'];
+            $cart->product_id = $data['product_id'];
+            $cart->update();
+            return response_api(true, 200, 'updating Successfully!',  ['data' => new CartResource($cart)]);
 
-        $add = new Cart();
-        $add->user_id = Auth::user()->id;
-        $add->quantity = $data['quantity'];
-        $add->product_id = $data['product_id'];
-        $add->save();
-        return response_api(true, 200, 'Add To Cart Successfully!', '');
+        } else {
+            $cart = new Cart();
+            $cart->user_id = Auth::user()->id;
+            $cart->quantity = $data['quantity'];
+            $cart->product_id = $data['product_id'];
+            $cart->save();
+            return response_api(true, 200, 'Add To Cart Successfully!', ['data' => new CartResource($cart)]);
+        }
 
     }
 }

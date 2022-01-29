@@ -8,6 +8,8 @@ use \App\Http\Controllers\Api\AddressController;
 use \App\Http\Controllers\Api\CategoryController;
 use \App\Http\Controllers\Api\CartController;
 use \App\Http\Controllers\Api\OrderController;
+use \App\Http\Controllers\Api\LanguageController;
+use \App\Http\Controllers\Api\RateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,14 +22,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('/lang-loc',[LanguageController::class,'addLang']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot-password', [UserController::class,'forgotPassword']);
+Route::post('forgot-password-code', [UserController::class,'forgotPasswordCode']);
 
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('/lang-loc',[FavoriteController::class,'addLang']);
 
     Route::post('/verify',[UserController::class,'verify']);
     Route::post('/logout',[UserController::class,'logout']);
@@ -52,6 +54,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/addresses',[AddressController::class,'show']);
     Route::post('/address',[AddressController::class,'addAddress']);
+
+    Route::post('/rate',[RateController::class,'rate']);
 
 
 //    Route::get('/home', [UserController::class, 'home']);

@@ -14,6 +14,10 @@ class LanguageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=>$this->id,
+            'language'=>$this->language,
+            'iso'=>$this->iso,
+        ];
     }
 }

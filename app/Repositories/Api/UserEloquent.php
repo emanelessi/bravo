@@ -7,6 +7,8 @@ use App\Http\Resources\FavoriteResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
@@ -55,27 +57,32 @@ class UserEloquent
 
     public function forgotPassword(array $data)
     {
-        $input = $data['phone'];
-        $validator = Validator::make([$input], [
-            'phone' => "required"
-        ]);
+        $user = User::where('phone', $data['phone'])->first();
+        if ($user != null) {
+            return response_api(true, 200, 'send successfully', '');
 
-//        $validator = Validator::make($data, $rules);
+        }else{
+            return response_api(false, 500, 'This Phone not found!', '');
+        }
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-        $response = Password::sendResetLink($input);
-        $message = $response == Password::RESET_LINK_SENT ? 'Mail send successfully' : 'SOMETHING_WRONG';
-        if ($message== 'SOMETHING_WRONG'){
-            return response_api(false, 400, '$message', '');
-        }
-        if ($message== 'Mail send successfully'){
-            return response_api(true, 200, '$message', '');
-
-        }
-        return response()->json($data);
     }
+    public function forgotPasswordCode(array $data)
+    {
+        if (App::environment('local')) {
+            if ($data['forget_code']== '1234'){
+//                $user =  User::where('phone', $data['phone'])->get();
+//                dd($user);
+                $user->forget_code = $data['forget_code'];
+                $user->save();
+//            $user->forget_code = $data['forget_code'];
+//                 $user->update();
+            return response_api(true, 200, 'code successfully', '');
+
+        }else{
+            return response_api(false, 500, 'This Phone not found!', '');
+        }
+
+    }}
     public function logout(array $data)
     {
         $data->user()->token()->revoke();

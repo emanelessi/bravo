@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RateRequest extends FormRequest
+class ForgotPasswordCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'rate' => 'required',
-            'product_id' => 'required',
-
+            'forget_code' => "required"
         ];
     }
 }

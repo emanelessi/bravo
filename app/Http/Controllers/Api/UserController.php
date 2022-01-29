@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgotPasswordCodeRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\SignupRequest;
 use App\Http\Requests\verifcationCodeRequest;
@@ -27,9 +28,13 @@ class UserController extends Controller
     {
         return $this->user->forgotPassword($request->all());
     }
+    public function forgotPasswordCode(ForgotPasswordCodeRequest $request)
+    {
+        return $this->user->forgotPasswordCode($request->all());
+    }
+
     public function logout(Request $request)
     {
-
         return $this->user->logout($request->all());
     }
     public function profile()
