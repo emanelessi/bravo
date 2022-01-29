@@ -20,8 +20,7 @@ class AddressEloquent
 
     public function show()
     {
-        $user_id = Auth::user()->address;
-        $address = Address::find($user_id);
+        $address = Address::where('user_id', auth()->user()->id)->get();
         return response_api(true, 200, 'Success', ['data' => AddressResource::collection($address)]);
 
     }

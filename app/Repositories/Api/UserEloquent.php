@@ -37,7 +37,7 @@ class UserEloquent
         $statusCode = $response->getStatusCode();
         $response = json_decode($response->getContent());
         if ($statusCode != 200)
-            return response_api(false, $statusCode, $response->message, $response);
+            return response_api(false, $statusCode, $response['message'], $response);
 
         $response_token = $response;
         $token = $response->access_token;

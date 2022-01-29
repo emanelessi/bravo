@@ -19,7 +19,6 @@ class CartEloquent
     }
     public function show()
     {
-
         $cart = Cart::where('user_id', Auth::user()->id)->get();
         return response_api(true, 200, 'Success', ['data' => CartResource::collection($cart)]);
 

@@ -8,6 +8,7 @@ use App\Http\Resources\FavoriteResource;
 use App\Models\Favorite;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class FavoriteEloquent
 {
@@ -20,10 +21,8 @@ class FavoriteEloquent
 
     public function favorite()
     {
-        $user_id=Auth::user()->favorite;
-        $favorite = Favorite::find($user_id);
+        $favorite = Favorite::where('user_id', auth()->user()->id)->get();
         return response_api(true, 200, 'Success', ['data' => FavoriteResource::collection($favorite)]);
-
     }
 
     public function addFavorites(array $data)
@@ -41,3 +40,9 @@ class FavoriteEloquent
         }
     }
 }
+//if (!Redis::get('auth')) {
+//                $user = auth()->user();
+//                Redis::set('auth', json_encode($user));
+//            }
+//
+//            return json_decode(Redis::get('auth'));
