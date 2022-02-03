@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/lang-loc',[LanguageController::class,'addLang']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot-password', [UserController::class,'forgotPassword']);
@@ -35,20 +34,23 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/logout',[UserController::class,'logout']);
 
     Route::get('/profile',[UserController::class,'profile']);
+    Route::put('/profile', [UserController::class, 'editProfile']);
 
     Route::post('/favorites',[FavoriteController::class,'favorite']);
     Route::post('/favorite',[FavoriteController::class,'addFavorites']);
 
-    Route::post('/product',[ProductController::class,'show']);
-    Route::post('/product-detail',[ProductController::class,'store']);
+    Route::post('/products',[ProductController::class,'show']);
+    Route::get('/product/{id}',[ProductController::class,'store']);
+//    Route::get('/product/{id}',[ProductController::class,'get']);
 
-    Route::post('/cart',[CartController::class,'show']);
+    Route::post('/carts',[CartController::class,'show']);
     Route::post('/add-cart',[CartController::class,'addToCart']);
+    Route::delete('/cart/{id}',[CartController::class,'destroy']);
 
-    Route::post('/order',[OrderController::class,'show']);
-    Route::post('/order-detail',[OrderController::class,'store']);
+
+    Route::post('/orders',[OrderController::class,'show']);
+    Route::get('/order/{id}',[OrderController::class,'store']);
     Route::post('/checkout',[OrderController::class,' CheckOut']);
-
 
     Route::post('/home',[CategoryController::class,'show']);
 

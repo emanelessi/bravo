@@ -3,17 +3,14 @@
 
 namespace App\Repositories\Api;
 
-use App\Http\Resources\FavoriteResource;
+use App\Http\Resources\ProfileResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Session;
 
 
 class UserEloquent
@@ -24,6 +21,7 @@ class UserEloquent
     {
         $this->model = $user;
     }
+
     public function register(array $data)
     {
         $data['password'] = bcrypt($data['password']);
@@ -61,37 +59,59 @@ class UserEloquent
         if ($user != null) {
             return response_api(true, 200, 'send successfully', '');
 
-        }else{
+        } else {
             return response_api(false, 500, 'This Phone not found!', '');
         }
 
     }
+
     public function forgotPasswordCode(array $data)
     {
         if (App::environment('local')) {
-            if ($data['forget_code']== '1234'){
+            if ($data['forget_code'] == '1234') {
 //                $user =  User::where('phone', $data['phone'])->get();
-//                dd($user);
-                $user->forget_code = $data['forget_code'];
-                $user->save();
-//            $user->forget_code = $data['forget_code'];
-//                 $user->update();
-            return response_api(true, 200, 'code successfully', '');
+//                $user = User::where('id', $data['id'])->get();
+//                $user->forget_code = $data['forget_code'];
+//                $user->save();
+                return response_api(true, 200, 'code successfully', '');
 
-        }else{
-            return response_api(false, 500, 'This Phone not found!', '');
+            } else {
+                return response_api(false, 500, 'This code not found!', '');
+            }
+
         }
-
-    }}
-    public function logout(array $data)
-    {
-        $data->user()->token()->revoke();
-        return response_api(true, 200, 'Successfully logged out', '');
-
     }
+    public function editProfile(array $data)
+    {
+        $id = auth()->user()->id;
+        $user = User::find($id);
+        $user->full_name = $data['full_name'];
+        if ($data['email'] != null) {
+            $user->email = $data['email'];
+        }
+        if ($data['password'] != null) {
+            $user->password = bcrypt($data['password']);
+        }
+        if ($data['phone'] != null) {
+            $user->phone = $data['phone'];
+        }
+        if ($data['photo'] != null) {
+            $user->photo = $data['photo'];
+        }
+        $user->save();
+        return response_api(true, 200, 'Successfully Updated!', ['profile' => new UserResource($user)]);
+    }
+
+
+    public function logout()
+    {
+        Auth::user()->token()->revoke();
+        return response_api(true, 200, 'Successfully logged out', '');
+    }
+
     public function profile()
     {
-        return response_api(true, 200, 'Profile User',  \auth()->user());
+        return response_api(true, 200, 'Profile User', \auth()->user());
     }
 //    public function home()
 //    {
@@ -112,31 +132,19 @@ class UserEloquent
 ////        return response_api(true, 200, 'Success', new UserResource($user));
 //    }
 
-    public function verify(array $data){
-        if ($data['verifcation_code']== '1234'){
-            $id = auth()->user()->id;
-            $user = User::find($id);
-            $user->is_verify = true;
-            $user->save();
-            $data = [
-                'status' => true,
-                'statusCode' => 200,
-                'message' => 'Phone Verified Successfully!',
-                'items' => '',
+    public function verify(array $data)
+    {
+        if (App::environment('local')) {
+            if ($data['verifcation_code'] == '1234') {
+                $id = auth()->user()->id;
+                $user = User::find($id);
+                $user->is_verify = true;
+                $user->save();
+                return response_api(true, 200, 'Phone Verified Successfully!', new UserResource($user));
 
-            ];
-            return response()->json($data);
-//            return response_api(true, 200, 'Phone Verified Successfully!', new UserResource($user));
-
+            } else {
+                return response_api(false, 500, 'Bad Verifcation Code!', '');
+            }
         }
-        $data = [
-            'status' => false,
-            'statusCode' => 500,
-            'message' => 'Bad Verifcation Code!',
-            'items' => '',
-
-        ];
-        return response()->json($data);
     }
-
 }

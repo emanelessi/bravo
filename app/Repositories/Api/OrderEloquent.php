@@ -24,9 +24,9 @@ class OrderEloquent
     }
 
 
-    public function store(array $data)
+    public function store($id)
     {
-        $order = Order::where('product_id', $data['product_id'])->first();
+        $order = Order::find($id);
         if ($order != null) {
             return response_api(true, 200, 'Success', [new OrderResource($order)]);
 

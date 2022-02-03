@@ -21,6 +21,11 @@ class CartController extends Controller
     {
         return $this->cart->addToCart($request->all());
     }
+    public function destroy($id)
+    {
+        return $this->cart->destroy($id);
+    }
+
 
 
 }

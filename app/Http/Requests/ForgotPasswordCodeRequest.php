@@ -24,7 +24,7 @@ class ForgotPasswordCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'forget_code' => "required"
+            'forget_code' => "required",
         ];
     }
 }

@@ -18,8 +18,10 @@ class RateResource extends JsonResource
         return[
             'id'=>$this->id,
             'rate'=>$this->rate,
+//            'average_rating' => $this->rate->AVG('rate'),
             'product'=>new ProductResource($this->product),
             'user'=>new UserResource($this->user),
+//            'user'=>new UserResource::collection($this->user),
         ];
     }
 }

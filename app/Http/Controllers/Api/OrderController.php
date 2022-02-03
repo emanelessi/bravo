@@ -18,9 +18,13 @@ class OrderController extends Controller
     {
         return $this->order->show();
     }
-    public function store(OrderRequest $request)
+//    public function store(OrderRequest $request)
+//    {
+//        return $this->order->store($request->all());
+//    }
+    public function store($id)
     {
-        return $this->order->store($request->all());
+        return $this->order->store($id);
     }
     public function CheckOut(CheckOutRequest $request)
     {

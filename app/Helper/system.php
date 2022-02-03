@@ -22,3 +22,8 @@ function response_api($status, $statusCode, $message, $data ,$page_number =null,
                 'items'=>$data
             ]);
 }
+
+
+function getLanguages(){
+    return \Carbon\Language::pluck('iso')->toArray();
+}

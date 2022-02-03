@@ -6,7 +6,6 @@ namespace App\Repositories\Api;
 
 use App\Http\Resources\RateResource;
 use App\Models\Rate;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class RateEloquent
 {

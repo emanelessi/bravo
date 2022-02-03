@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Rate;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -17,13 +18,14 @@ class ProductResource extends JsonResource
 //        `img`, `name`, `main_price`, `current_price`, `description`, `category_id
         return [
             'id'=>$this->id,
-            'name'=>$this->name,
+            'name'=>$this->translation()->name,
             'img'=>$this->img,
             'main_price'=>$this->main_price,
             'current_price'=>$this->current_price,
-            'description'=>$this->description,
+            'description'=>$this->translation()->description,
             'category'=>new CategoryResource($this->category),
-            'rate'=>new RateResource($this->rate),
+        'rate'=> Rate::where('product_id', $this->product_id)->AVG('rate'),
+//            'rate' => $this->rate,
         ];
     }
 }

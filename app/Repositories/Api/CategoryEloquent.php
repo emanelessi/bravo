@@ -19,9 +19,12 @@ class CategoryEloquent
     }
     public function show()
     {
+
         $category = Category::all();
         $Adv =Adv::where('is_active', 1)->get();
-        return response_api(true, 200, 'Success', ['Adv' => AdvResource::collection($Adv),'category' => CategoryResource::collection($category)]);
+        return response_api(true, 200, 'Success',
+            ['Adv' => AdvResource::collection($Adv),
+                'category' => CategoryResource::collection($category)]);
 
     }
 

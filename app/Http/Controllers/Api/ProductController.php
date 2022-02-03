@@ -15,12 +15,17 @@ class ProductController extends Controller
     }
 
 
+//    public function get($id)
+//    {
+//        return $this->product->get($id);
+//    }
+
     public function show()
     {
         return $this->product->show();
     }
-    public function store(ProductRequest $request)
+    public function store($id)
     {
-        return $this->product->store($request->all());
+        return $this->product->store($id);
     }
 }

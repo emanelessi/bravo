@@ -20,12 +20,14 @@ class CartEloquent
     {
         $this->model = $cart;
     }
+
     public function show()
     {
         $cart = Cart::where('user_id', Auth::user()->id)->get();
         return response_api(true, 200, 'Success', ['data' => CartResource::collection($cart)]);
 
     }
+
     public function addToCart(array $data)
     {
 //        $product = Product::findOrFail($data['id']);
@@ -50,7 +52,7 @@ class CartEloquent
             $cart->quantity = $data['quantity'];
             $cart->product_id = $data['product_id'];
             $cart->update();
-            return response_api(true, 200, 'updating Successfully!',  ['data' => new CartResource($cart)]);
+            return response_api(true, 200, 'updating Successfully!', ['data' => new CartResource($cart)]);
 
         } else {
             $cart = new Cart();
@@ -62,5 +64,19 @@ class CartEloquent
         }
 
     }
+
+    public function destroy($id)
+    {
+        $cart = Cart::find($id);
+        if ($cart != null) {
+            $cart->delete();
+            return response_api(true, 200, 'Delete To Cart Successfully!', '');
+
+        }
+        if ($cart == null) {
+            return response_api(false, 400, 'There is no product with this id!', '');
+        }
+    }
+
 }
 

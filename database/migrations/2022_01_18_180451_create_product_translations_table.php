@@ -16,8 +16,8 @@ class CreateProductTranslationsTable extends Migration
         Schema::create('product_translations', function (Blueprint $table) {
             $table->id();
             $table->string('language');
-            $table->string('name');
-            $table->longText('description');
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->timestamps();

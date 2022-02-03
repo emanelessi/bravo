@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ForgotPasswordCodeRequest;
 use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\SignupRequest;
 use App\Http\Requests\verifcationCodeRequest;
 use App\Repositories\Api\UserEloquent;
@@ -32,10 +33,23 @@ class UserController extends Controller
     {
         return $this->user->forgotPasswordCode($request->all());
     }
-
-    public function logout(Request $request)
+    public function editProfile(ProfileRequest $request)
     {
-        return $this->user->logout($request->all());
+        return $this->user->editProfile($request->all());
+    }
+    public function logout()
+    {
+        return $this->user->logout();
+//        $request->user()->token()->revoke();
+////        $item=[
+////            'status' => true,
+////            'statusCode' => 200,
+////            'message' => 'Successfully logged out',
+////            'data' => []
+////        ];
+////        return response()->json($item);
+//
+//        return response_api(true, 200, 'Successfully logged out', '');
     }
     public function profile()
     {
