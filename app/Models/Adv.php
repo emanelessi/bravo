@@ -18,7 +18,7 @@ class Adv extends Model
         if ($language == null) {
             $language = app()->getLocale();
         }
-        return $this->hasMany(ProductTranslation::class)->where('language', '=', $language)->first();
+        return $this->hasMany(AdvTranslation::class)->where('language', '=', $language)->first();
     }
 
     public function translationModel($language = null)
@@ -26,12 +26,12 @@ class Adv extends Model
         if ($language == null) {
             $language = app()->getLocale();
         }
-        return $this->hasMany(ProductTranslation::class)->where('language', '=', $language);
+        return $this->hasMany(AdvTranslation::class)->where('language', '=', $language);
     }
 
 //to get all translation for model
     public function translationAllLang()
     {
-        return $this->hasMany(ProductTranslation::class);
+        return $this->hasMany(AdvTranslation::class);
     }
 }

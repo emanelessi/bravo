@@ -8,7 +8,7 @@ use \App\Http\Controllers\Api\AddressController;
 use \App\Http\Controllers\Api\CategoryController;
 use \App\Http\Controllers\Api\CartController;
 use \App\Http\Controllers\Api\OrderController;
-use \App\Http\Controllers\Api\LanguageController;
+use \App\Http\Controllers\Api\PaymentController;
 use \App\Http\Controllers\Api\RateController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/rate',[RateController::class,'rate']);
 
-
+    Route::post('/payment', [PaymentController::class,'payWithpaypal'])->name('payment');
+    Route::get('/payment/status',[PaymentController::class,'getPaymentStatus'])->name('status');
 //    Route::get('/home', [UserController::class, 'home']);
 });

@@ -18,7 +18,7 @@ class Category extends Model
         if ($language == null) {
             $language = app()->getLocale();
         }
-        return $this->hasMany(ProductTranslation::class)->where('language', '=', $language)->first();
+        return $this->hasMany(CategoryTranslation::class)->where('language', '=', $language)->first();
     }
 
     public function translationModel($language = null)
@@ -26,13 +26,13 @@ class Category extends Model
         if ($language == null) {
             $language = app()->getLocale();
         }
-        return $this->hasMany(ProductTranslation::class)->where('language', '=', $language);
+        return $this->hasMany(CategoryTranslation::class)->where('language', '=', $language);
     }
 
 //to get all translation for model
     public function translationAllLang()
     {
-        return $this->hasMany(ProductTranslation::class);
+        return $this->hasMany(CategoryTranslation::class);
     }
 
 }

@@ -23,6 +23,7 @@ class UserController extends Controller
     }
     public function login()
     {
+
         return $this->user->login();
     }
     public function forgotPassword(ForgotPasswordRequest $request)

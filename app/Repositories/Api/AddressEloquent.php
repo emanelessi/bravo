@@ -22,7 +22,6 @@ class AddressEloquent
     {
         $address = Address::where('user_id', auth()->user()->id)->get();
         return response_api(true, 200, 'Success', ['data' => AddressResource::collection($address)]);
-
     }
 
     public function addAddress(array $data)

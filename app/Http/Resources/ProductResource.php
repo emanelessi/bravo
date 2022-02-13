@@ -15,6 +15,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+
 //        `img`, `name`, `main_price`, `current_price`, `description`, `category_id
         return [
             'id'=>$this->id,
@@ -24,7 +25,7 @@ class ProductResource extends JsonResource
             'current_price'=>$this->current_price,
             'description'=>$this->translation()->description,
             'category'=>new CategoryResource($this->category),
-        'rate'=> Rate::where('product_id', $this->product_id)->AVG('rate'),
+            'rate'=> Rate::where('product_id', $this->product_id)->AVG('rate'),
 //            'rate' => $this->rate,
         ];
     }
